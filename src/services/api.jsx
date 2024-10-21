@@ -1,16 +1,40 @@
 import axios from "axios";
-import { logout } from "../shared/hooks/useLogout";
 
-const apiClient =  axios.create({
-    baseURL: 'http:/localhost:8080/learningPlus/v1',
+const apiClient = axios.create({
+    baseURL: 'http://localhost:8080/learningPlus/v1',
     timeout: 5000
 })
 
+export const login = async (data) => {
+    try{
+        
+        return await apiClient.post('/auth/login', data)
+    }catch(e){
+        console.log(e)
+        return{
+            error: true,
+            e
+        }
+    }
+}
+
+export const registerOnPage = async (data) => {
+    try{
+        return await apiClient.post('/users/', data)
+    }catch(e){
+        return{
+            error: true,
+            e
+        }
+    }
+}
+/*
 apiClient.interceptors.request.use(
     (config) =>{
         const userDetails = localStorage.getItem('user')
+
         if(userDetails){
-            const token = JSON.parse(userDetails).token
+            const token =  JSON.parse(userDetails).token
             config.headers.Authorization = `Bearer ${token}`
         }
         return config
@@ -19,25 +43,4 @@ apiClient.interceptors.request.use(
         return Promise.reject(e)
     }
 )
-
-export const login = async (data) =>{
-    try {
-        return await apiClient.post('/auth/login')
-    } catch (e) {
-        return{
-            error: true,
-            e
-        }
-    }
-}
-
-export const registerOnPage = async (data) =>{
-    try {
-        return await apiClient.post("/users/")
-    } catch (error) {
-        return{
-            error: true,
-            e
-        }
-    }
-}
+*/

@@ -4,10 +4,12 @@ import { login as loginRequest } from "../../services/api";
 import toast from "react-hot-toast";
 
 export const useLogin = () => {
-    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
+
     const login = async(email, password) =>{
         setIsLoading(true)
+
         const response = await loginRequest({
             email,
             password
@@ -16,18 +18,30 @@ export const useLogin = () => {
         setIsLoading(false)
         if(response.error){
             return toast.error(
-                response.e?.response?.data || 'Ocurrió un error al iniciar la sesión'
+                response.e?.response?.data || 'Ocurrió un error al iniciar sesión'
             )
         }
-        const {userDetails} = response.data
+
+        const { userDetails } = response.data
+
         localStorage.setItem('user', JSON.stringify(userDetails))
-
-        navigate('/')
+        switch(userDetails.role){
+            case "DEFAULT_ADMIN" || "ADMIN_ROLE":
+                navigate('/dashboard/admin');
+                break;
+            case "EDITOR_ROLE":
+                navigate("/dashboard/editor");
+                break;
+            case "USER_ROLE":
+                navigate("/dashboard");
+                break;
+            default:
+                navigate('/');
+        }
     }
-  return (
-    login,
-    isLoading
-  )
-}
-
+    return {
+        login,
+        isLoading
+    };
+};
 

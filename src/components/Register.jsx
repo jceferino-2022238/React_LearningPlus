@@ -9,9 +9,7 @@ import { emailValidationMessage,
     validateEmail,
     validatePassword
  } from "../shared/validators";
-
-import { useRegisterOnPage } from "../shared/hooks/useRegisterOnPage";
-
+import { useRegisterOnPage } from "../shared/hooks";
 export const Register = ({switchAuthHandler}) =>{
     const {register, isLoading} = useRegisterOnPage();
     const [formState, setFormState] =useState({
@@ -75,7 +73,7 @@ export const Register = ({switchAuthHandler}) =>{
 
     const handleRegister = (event) =>{
         event.preventDefault();
-        console.log(formState)
+        console.log(formState);
         register(
             formState.name.value,
             formState.email.value,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerOnPage as registerRequest } from "../../services/api";
+import { registerOnPage} from "../../services/api";
 import toast from "react-hot-toast";
 
 export const useRegisterOnPage = () => {
@@ -9,23 +9,28 @@ export const useRegisterOnPage = () => {
 
     const register = async(name, email, password) =>{
         setIsLoading(true)
-        const response = await registerRequest({
-            name,
-            email,
-            password
-        })
-        setIsLoading(false)
-        if(response.error){
-            return toast.error(
-                response.e?.response?.data || 'Ocurrió un error al registrarse'
-            )
+        try {
+            const response = await registerOnPage({
+                name,
+                email,
+                password
+            })
+            setIsLoading(false)
+            if(response.error){
+                if(response.error.response && response.error.response.status === 400 && response.error.response.data.includes
+                    ('email already registered')){
+                        return toast.error("El correo ya está registrado")
+                    }
+            }   
+            toast.success("Registro exitoso")
+            navigate("/")
+        } catch (error) {
+            setIsLoading(false)
+            toast.error("Ocurrió un error al registrar el usuario");
         }
-        const {userDetails} = response.data
-        localStorage.setItem('user', JSON.stringify(userDetails))
-        navigate('/')
     }
-  return (
-    register,
-    isLoading
-  )
+    return {
+        register,
+        isLoading
+    }
 }
