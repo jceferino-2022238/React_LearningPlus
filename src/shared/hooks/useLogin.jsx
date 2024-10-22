@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login as loginRequest } from "../../services/api";
 import toast from "react-hot-toast";
 
 export const useLogin = () => {
     const navigate = useNavigate()
+    const handleNavigateToDashboard = () =>{
+        navigate('/dashboard')
+    }
+    const handleNavigatetoDashboardEditor = () =>{
+        navigate('/dashboard/editor')
+    }
+    const handleNavigateToDashboardAdmin = () =>{
+        navigate('/dashboard/admins')
+    }
     const [isLoading, setIsLoading] = useState(false)
 
     const login = async(email, password) =>{
@@ -26,22 +35,26 @@ export const useLogin = () => {
 
         localStorage.setItem('user', JSON.stringify(userDetails))
         switch(userDetails.role){
-            case "DEFAULT_ADMIN" || "ADMIN_ROLE":
-                navigate('/dashboard/admin');
+            case "DEFAULT_ADMIN":
+                handleNavigateToDashboardAdmin()
+                break;
+            case "ADMIN_ROLE":
+                handleNavigateToDashboardAdmin()
                 break;
             case "EDITOR_ROLE":
-                navigate("/dashboard/editor");
+                handleNavigatetoDashboardEditor()
                 break;
             case "USER_ROLE":
-                navigate("/dashboard");
+                handleNavigateToDashboard()
                 break;
             default:
-                navigate('/');
+                handleNavigateToDashboard()
+                break;
         }
     }
     return {
         login,
         isLoading
     };
-};
+}
 

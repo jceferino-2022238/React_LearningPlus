@@ -62,7 +62,7 @@ export const Login = ({ switchAuthHandler }) => {
   
     const isSubmitButtonDisabled = isLoading || !formState.password.isValid || !formState.email.isValid
     return (
-      <div className="login-container">
+      <div className=".border-blue-800 .flex .items-center .justify-center">
           <img src="../../src/assets/LEARNINGP-LOGO.png"/>
           <form className="auth-form">
               <Input

@@ -1,18 +1,18 @@
 import { useEffect } from "react";
 import { Navbar } from "../../components/navbar/Navbar";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
-import { useUserDetails } from "../../shared/hooks/useUserDetails";
+import { useUserDetails } from "../../shared/hooks";
 import { LinksResources } from "../../components/dashboard/LinksResources";
-export const DashboardPage = () =>{
-    const {isLogged} = useUserDetails();
 
+export const DashboardPageEditor = () => {
     useEffect(() =>{
-        
+
     })
-    return(
-        <div>
-            <Navbar/>
-            <LinksResources/>
-        </div>
-    )
+  return (
+    <div>
+        <Navbar/>
+        <LinksResources/>
+    </div>
+  )
 }
+

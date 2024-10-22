@@ -1,5 +1,7 @@
 import { AuthPage } from "./pages/auth/AuthPage";
 import { DashboardPage } from "./pages/dashboard/DashboardPage";
+import { DashboardPageAdmin } from "./pages/dashboardAdmin/DashboardPageAdmin";
+import { DashboardPageEditor } from "./pages/dashboardEditor/DashboardPageEditor";
 import { NotFound } from "./components/NotFound";
 import { Unauthorized } from "./components/Unauthorized";
 const routes = [
@@ -11,10 +13,12 @@ const routes = [
         element: <DashboardPage/>
     },
     {
-        path: '/dashboardAdmins'
+        path: '/dashboard/admins',
+        element: <DashboardPageAdmin/>
     },
     {
-        path: '/dashboardEditor'
+        path: '/dashboard/editor',
+        element: <DashboardPageEditor/>
     }
 ]
 export default routes;

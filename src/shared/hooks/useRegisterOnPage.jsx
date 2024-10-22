@@ -21,9 +21,9 @@ export const useRegisterOnPage = () => {
                     ('email already registered')){
                         return toast.error("El correo ya está registrado")
                     }
-            }   
-            toast.success("Registro exitoso")
+            }  
             navigate("/")
+            toast.success("Registro exitoso")
         } catch (error) {
             setIsLoading(false)
             toast.error("Ocurrió un error al registrar el usuario");
