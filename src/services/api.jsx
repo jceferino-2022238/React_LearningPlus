@@ -45,4 +45,50 @@ export const registerOnPage = async (data) => {
     }
 }
 
+export const getCourses = async () =>{
+    try {
+        return await apiClient.get("/course");
+    } catch (error) {
+        return{ error: true, e}
+    }
+}
 
+export const getByIdCourse = async (id) => {
+    try {
+        return await apiClient.get(`/course/${id}`)
+    } catch (error) {
+        return { error: true, e}
+    }
+}
+
+export const getProfiles = async () =>{
+    try {
+        return await apiClient.get("/profile")
+    } catch (error) {
+        return { error: true, e}
+    }
+}
+
+export const getByIdProfile = async (id) => {
+    try {
+        return await apiClient.get(`/profile/${id}`)
+    } catch (error) {
+        return { error: true, e}
+    }
+}
+
+export const getBlogs = async () => {
+    try {
+        return await apiClient.get("/blog")
+    } catch (error) {
+        return { error: true, e}
+    }
+}
+
+export const getByIdBlog = async (id) => {
+    try {
+        return await apiClient.get(`/blog/${id}`)
+    } catch (error) {
+        return { error: true, e}
+    }
+}
